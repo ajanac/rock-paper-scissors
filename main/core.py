@@ -25,35 +25,45 @@
 import random
 import re
 
+
+def valid(user_hoice):
+    if not re.match("[SsRrPp]", user_hoice):
+        return True
+    else:
+        return False
+
+
+def result(opponent_choice, user_choice):
+    if opponent_choice == str.upper(user_choice):
+        result_string = "Tie"
+    elif opponent_choice == 'R' and user_choice.upper() == 'S':
+        result_string = "Scissors beats rock, I win!"
+    elif opponent_choice == 'S' and user_choice.upper() == 'P':
+        result_string = "Scissors beats paper! I win!"
+    elif opponent_choice == 'P' and user_choice.upper() == 'R':
+        result_string = "Paper beat rock, I win!"
+    else:
+        result_string = "you win!"
+    return result_string
+
+
 def startGame():
     while (1 < 2):
         print("\n")
         print("Rock, Paper, Scissors - Go!!!")
         user_choice = input("Choose your weapon [R]ock, [P]aper, or [S]cissors: ")
-        if not re.match("[SsRrPp]", user_choice):
+        if valid(user_choice):
             print("Please choose a letter:")
             print("[R]ock, [S]cissors or [P]aper.")
             continue
         print("your choice: ", user_choice)
         choices = ['R', 'P', 'S']
         opponent_choice = random.choice(choices)
-        if opponent_choice == str.upper(user_choice):
-            print("Tie!")
-        elif opponent_choice == 'R' and user_choice.upper() == 'S':
-            print("Scissors beats rock, I win!")
-            continue
-        elif opponent_choice == 'S' and user_choice.upper() == 'P':
-            print("Scissors beats paper! I win!")
-            continue
-        elif  opponent_choice == 'P' and user_choice.upper() == 'R':
-            print("Paper beat rock, I win!")
-            continue
-        else:
-            print("you win!")
+        result_string = result(opponent_choice, user_choice)
+        print(result_string)
+
 
 if __name__ == '__main__':
     startGame()
-
-
 
 
