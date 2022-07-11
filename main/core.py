@@ -22,9 +22,15 @@
 """ Rock Paper Scissors
 ----------------------------------------
 """
+import logging
 import random
 import re
 
+logger = logging.getLogger(__name__)
+global_score = 0
+
+def scoreKeeper():
+    pass
 
 def valid(user_hoice):
     if not re.match("[SsRrPp]", user_hoice):
