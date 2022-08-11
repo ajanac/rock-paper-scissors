@@ -23,14 +23,20 @@
 ----------------------------------------
 """
 import logging
+
 import random
 import re
+
+from helpers import Utils
+from player import Player
 
 logger = logging.getLogger(__name__)
 global_score = 0
 
-def scoreKeeper():
+
+def score_keeper():
     pass
+
 
 def valid(user_hoice):
     if not re.match("[SsRrPp]", user_hoice):
@@ -53,10 +59,16 @@ def result(opponent_choice, user_choice):
     return result_string
 
 
-def startGame():
-    while (1 < 2):
-        print("\n")
-        print("Rock, Paper, Scissors - Go!!!")
+def start_game():
+    util_obj = Utils()
+    player_one_name = util_obj.get_player_name()
+    print(player_one_name)
+    player_one = Player(player_one_name, 0)
+    player_two= Player("System", 0)
+    while 1 < 2:
+        print("\n*****************************")
+        print("Rock, Paper, Scissors - Game!!!")
+        print("\n*****************************")
         user_choice = input("Choose your weapon [R]ock, [P]aper, or [S]cissors: ")
         if valid(user_choice):
             print("Please choose a letter:")
@@ -70,6 +82,4 @@ def startGame():
 
 
 if __name__ == '__main__':
-    startGame()
-
-
+    start_game()
