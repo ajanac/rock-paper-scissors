@@ -38,37 +38,39 @@ def valid_user_choice(user_choice):
         return False
 
 def start_game():
+    print("Rock, Paper, Scissors - Game!!!")
     util_obj = Utils()
     choices = ['R', 'P', 'S']
-    player_one_name = util_obj.get_player_name()
-    print(player_one_name)
-    player_one = Player(player_one_name, 0)
-    player_two = Player("System", 0)
+    your_name = util_obj.get_player_name()
+    you = Player(your_name, 0)
+    system = Player("System", 0)
     while True:
-        print("\n*****************************")
-        print("Rock, Paper, Scissors - Game!!!")
-        print("\n*****************************")
-        player_one_choice = input("Choose your weapon [R]ock | [P]aper | [S]cissors: ")
-        if valid_user_choice(player_one_choice):
+        print("*****************************")
+        your_choice = input("Choose your weapon [R]ock | [P]aper | [S]cissors: ").upper()
+        if valid_user_choice(your_choice):
             print("You choose an invalid input")
-            print("Please choose a valid letter:")
-            print("[R]ock | [S]cissors | [P]aper.")
+            print("Please choose a valid letter: ")
             continue
-        print(f"your choice: {player_one_choice}")
-        logger.info(f"your choice: {player_one_choice}")
-        player_two_choice = random.choice(choices)
-        print(f"opponent choice: {player_two_choice}")
-        util_obj.score_keep(player_one, player_one_choice.upper(), player_two, player_two_choice)
-        wanna_play_again = input("Do you want to continue [Y]es | [N]o ?")
+        print(f"{you.name}'s choice: {your_choice}")
+        system_choice = random.choice(choices)
+        print(f"{system.name}'s choice: {system_choice}")
+        util_obj.score_keep(you, your_choice, system, system_choice)
+        util_obj.pretty_score_print(you, system)
+        wanna_play_again = input("Do you want to continue [Y]es | [N]o? ")
         if wanna_play_again.upper() == 'Y':
             continue
         else:
-            (winner_name, winner_score) = util_obj.winner(player_one, player_two)
-            if winner_name != "Tie":
-                print(f"Winner is {winner_name} and score is {winner_score}")
+            (winner, second_place, flag) = util_obj.winner(you, system)
+            if flag == "Not a Tie":
+                print(f"winner is {winner.name}")
+                util_obj.pretty_score_print(winner, second_place)
             else:
+                util_obj.pretty_score_print(winner, second_place)
                 print("It is a tie")
             break
 
 if __name__ == '__main__':
     start_game()
+    #need to come back for fixing the output
+    #add exception as well as unit testing
+    #need to fix the "Textable library : downloaded in the local pycharm project but not here.

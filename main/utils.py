@@ -1,8 +1,10 @@
+from player import Player
+
 class Utils():
     # displays a prompt and reads in the players name returning a string
     def get_player_name(self):
         # needs code here, see next function for idea of what
-        player_name = input("Hello, What is your name?")
+        player_name = input("Hello, What is your name? ")
         return player_name
 
     # ask the player to make a choice, takes a Player object
@@ -15,32 +17,39 @@ class Utils():
     # takes in the player objects and their attack choices
     choices = ['R', 'P', 'S']
 
-    def score_keep(self, player_one, player_one_choice, player_two, player_two_choice):
-        if player_one_choice == player_two_choice:
-            print("It is a tie.")
-        elif player_one_choice == "R" and player_two_choice == "P":
-            player_two.score += 1
-        elif player_two_choice == "R" and player_two_choice == "S":
-            player_two.score += 1
-        elif player_one_choice == "P" and player_two_choice == "S":
-            player_two.score += 1
-        elif player_one_choice == "P" and player_two_choice == "R":
-            player_one.score += 1
-        elif player_one_choice == "S" and player_two_choice == "P":
-            player_one.score += 1
-        elif player_two_choice == "S" and player_two_choice == "R":
-            player_two.score += 1
+    def score_keep(self, you, your_choice, system, system_choice):
+        if your_choice == "R" and system_choice == "P":
+            system.score += 1
+        elif system_choice == "R" and system_choice == "S":
+            system.score += 1
+        elif your_choice == "P" and system_choice == "S":
+            system.score += 1
+        elif your_choice == "P" and system_choice == "R":
+            you.score += 1
+        elif your_choice == "S" and system_choice == "P":
+            you.score += 1
+        elif system_choice == "S" and system_choice == "R":
+            system.score += 1
 
-    def winner(self, player_one, player_two):
-        winner_name = ""
-        winner_score = -999
-        if player_one.score > player_two.score:
-            winner_name = player_one.name
-            winner_score = player_one.score
-        elif player_one.score < player_two.score:
-            winner_name = player_two.name
-            winner_score = player_two.score
+    def winner(self, you, system):
+        flag = "Not a Tie"
+        if you.score > system.score:
+            winner = you
+            second_place = system
+        elif you.score < system.score:
+            winner = system
+            second_place = you
         else:
-            winner_name = "Tie"
-        return (winner_name, winner_score)
+            winner = you
+            second_place = system
+            flag = "Tie"
+        return (winner, second_place, flag)
+
+    def pretty_score_print(self, you, system):
+        from texttable import Texttable
+        t = Texttable()
+        t.add_rows([['Name', 'Score'], [you.name, you.score], [system.name, system.score]])
+        print(t.draw())
+
+
 
