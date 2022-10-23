@@ -27,15 +27,8 @@ from utils import Utils
 
 import logging
 import random
-import re
 
 logger = logging.getLogger(__name__)
-
-def valid_user_choice(user_choice):
-    if not re.match("[SsRrPp]", user_choice):
-        return True
-    else:
-        return False
 
 def start_game():
     print("Rock, Paper, Scissors - Game!!!")
@@ -47,9 +40,9 @@ def start_game():
     while True:
         print("*****************************")
         your_choice = input("Choose your weapon [R]ock | [P]aper | [S]cissors: ").upper()
-        if valid_user_choice(your_choice):
-            print("You choose an invalid input")
-            print("Please choose a valid letter: ")
+        if util_obj.valid_user_choice(your_choice) == False:
+            print(f"Your choice: {your_choice} is invalid")
+            print("Please choose a valid letter: [S|s|R|r|P|p]")
             continue
         print(f"{you.name}'s choice: {your_choice}")
         system_choice = random.choice(choices)
@@ -71,6 +64,3 @@ def start_game():
 
 if __name__ == '__main__':
     start_game()
-    #need to come back for fixing the output
-    #add exception as well as unit testing
-    #need to fix the "Textable library : downloaded in the local pycharm project but not here.

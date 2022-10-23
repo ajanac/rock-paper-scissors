@@ -1,4 +1,7 @@
-from player import Player
+import re
+
+from texttable import Texttable
+
 
 class Utils():
     # displays a prompt and reads in the players name returning a string
@@ -46,10 +49,16 @@ class Utils():
         return (winner, second_place, flag)
 
     def pretty_score_print(self, you, system):
-        from texttable import Texttable
+
         t = Texttable()
         t.add_rows([['Name', 'Score'], [you.name, you.score], [system.name, system.score]])
         print(t.draw())
+
+    def valid_user_choice(self, user_choice):
+        if re.match("[SsRrPp]", user_choice):
+            return True
+        else:
+            return False
 
 
 
